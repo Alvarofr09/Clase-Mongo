@@ -53,3 +53,8 @@ db.Conferencias.find().sort({fecha: 1})
 Descendente:
 db.Conferencias.find().sort({ fecha: -1 })
 
+-- 13. Eliminar todas las conferencias anteriores a 2025:
+db.Conferencias.deleteMany({fecha: {$lt: new ISODate("2025-01-01")}})
+Mayor que:
+db.Conferencias.deleteMany({ fecha: { $gt: new ISODate("2025-01-01") } })
+
