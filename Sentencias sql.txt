@@ -70,3 +70,13 @@ db.Ponentes.find({conferencia_id: ObjectId("...")})
 -- 17. Eliminar todas las conferencias donde el campo “tema” no está definido:
 db.Conferencias.deleteMany({ tema: { $exists: false } })
 
+-- 18. Hallar los asistentes que irán a la misma conferencia:
+var conferencia = db.Conferencias.findOne({ nombre: "E3" });
+if (conferencia) {
+var asistentes = db.Asistentes.find({ conferencias: conferencia._id });
+asistentes.forEach(asistente => {
+print("Nombre del asistente: " + asistente.nombre);
+});
+} else {
+print("La conferencia no fue encontrada.");
+}
