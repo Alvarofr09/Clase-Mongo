@@ -45,3 +45,6 @@ db.Asistentes.deleteOne({nombre: "Juan"})
 db.Ponentes.countDocuments()
 db.Ponentes.estimatedDocumentCount()
 
+-- 11. Buscar todos los asistentes menores de 40 años:
+db.Asistentes.find({edad: {$lt: 40}})
+
