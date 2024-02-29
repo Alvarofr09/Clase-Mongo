@@ -41,3 +41,7 @@ db.Conferencias.updateOne({nombre: "Web Summit"}, {$set: {fecha: new Date("2024-
 -- 9. Eliminar un asistente:
 db.Asistentes.deleteOne({nombre: "Juan"})
 
+-- 10. Contar el número de ponentes:
+db.Ponentes.countDocuments()
+db.Ponentes.estimatedDocumentCount()
+
