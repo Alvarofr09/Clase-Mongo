@@ -37,6 +37,8 @@ db.Conferencias.find({tema: "Tecnología"})
 
 -- 8. Actualizar la fecha de una conferencia:
 db.Conferencias.updateOne({nombre: "Web Summit"}, {$set: {fecha: new Date("2024-10-01")}})
+-- Actualizar mas de uno
+db.Conferencias.updateMany({nombre: "Web Summit"}, {$set: {fecha: new Date("2024-02-29")}})
 
 -- 9. Eliminar un asistente:
 db.Asistentes.deleteOne({nombre: "Juan"})
