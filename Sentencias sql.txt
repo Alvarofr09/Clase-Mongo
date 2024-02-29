@@ -64,3 +64,6 @@ db.Ponentes.updateOne({nombre: "Sara Smith"}, {$set: {especialidad: "Ciencia de 
 -- 15. Eliminar todas las conferencias con menos de 1 asistente:
 db.Conferencias.deleteMany({$expr: {$lt: [{$size: "$asistentes"}, 1]}})
 
+-- 16. Buscar los ponentes que participaron en una conferencia específica:
+db.Ponentes.find({conferencia_id: ObjectId("...")})
+
