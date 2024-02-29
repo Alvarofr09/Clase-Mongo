@@ -48,3 +48,8 @@ db.Ponentes.estimatedDocumentCount()
 -- 11. Buscar todos los asistentes menores de 40 años:
 db.Asistentes.find({edad: {$lt: 40}})
 
+-- 12. Ordenar las conferencias por fecha en orden ascendente:
+db.Conferencias.find().sort({fecha: 1})
+Descendente:
+db.Conferencias.find().sort({ fecha: -1 })
+
