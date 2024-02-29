@@ -58,3 +58,6 @@ db.Conferencias.deleteMany({fecha: {$lt: new ISODate("2025-01-01")}})
 Mayor que:
 db.Conferencias.deleteMany({ fecha: { $gt: new ISODate("2025-01-01") } })
 
+-- 14. Actualizar la especialidad de un ponente:
+db.Ponentes.updateOne({nombre: "Sara Smith"}, {$set: {especialidad: "Ciencia de Datos"}})
+
