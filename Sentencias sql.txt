@@ -34,3 +34,6 @@ db.Asistentes.find()
 
 -- Buscar una conferencia por tema:
 db.Conferencias.find({tema: "Tecnología"})
+
+-- Actualizar la fecha de una conferencia:
+db.Conferencias.updateOne({nombre: "Web Summit"}, {$set: {fecha: new Date("2024-10-01")}})
