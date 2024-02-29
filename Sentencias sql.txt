@@ -10,30 +10,34 @@ db.createCollection("Nombre")
 -- Borrar la coleecion
 db.nombreCollection.drop()
 
--- Insertar un solo dato en la coleccion
+-- 1. Insertar un solo dato en la coleccion
 db.Conferencias.insertOne({nombre: "Web Summit", tema: "Tecnología", fecha: new Date("2024-06-01"), lugas: "Lisboa"})
 
--- Insertar muchos datos de una
+-- 2. Insertar muchos datos de una
 db.Conferencias.insertMany([{nombre: "TED Conference", tema: "Inspiración", fecha: new Date("2024-09-15"), lugar: "Vancouver"},{nombre: "CES", tema: "Electrónica de consumo", fecha: new Date("2024-01-08"), lugar: "Las Vegas"}, {nombre: "SXSW", tema: "Tecnología y cultura", fecha: new Date("2024-03-13"), lugar: "Austin"}, {nombre: "E3", tema: "Videojuegos", fecha: new Date("2024-06-15"), lugar: "Los Ángeles"}, {nombre: "Collision", tema: "Tecnología y startups", fecha: new Date("2024-06-20"), lugar: "Toronto"}, {nombre: "Mobile World Congress", tema: "Tecnología móvil", fecha: new Date("2024-02-26"), lugar: "Barcelona"}, {nombre: "Strata Data Conference", tema: "Big Data y ", fecha: new Date("2024-03-17"), lugar: "San Francisco"}, {nombre: "Black Hat", tema: "Seguridad informática", fecha: new Date("2024-08-03"), lugar: "Las Vegas"}, {nombre: "Web Summit", tema: "Tecnología", fecha: new Date("2024-11-04"), lugar: "Lisboa"} ])
 
 -- Devolverte todos los datos
 db.nombreCollection.find()
 sql: SELECT * FROM tabla;
 
--- Agregar varios asistentes a una conferencia:
+-- 3. Agregar varios asistentes a una conferencia:
 db.Asistentes.insertMany([ {nombre: "María", edad: 30, profesion: "Ingeniera", _id: ("65e06a5266c2a960204fc92d")}, {nombre: "Juan", edad: 35, profesion: "Desarrollador", conferencia_id: ObjectId("65e06a5266c2a960204fc92d")}, {nombre: "Laura", edad: 28, profesion: "Diseñadora", conferencia_id: ObjectId("65e06a5266c2a960204fc92e")}, {nombre: "Carlos", edad: 40, profesion: "Analista", conferencia_id: ObjectId("65e06a5266c2a960204fc92e")}, {nombre: "Sofía", edad: 33, profesion: "Gerente de Proyectos", conferencia_id: ObjectId("65e06a5266c2a960204fc92f")}, {nombre: "Pedro", edad: 32, profesion: "Consultor", conferencia_id: ObjectId("65e06a5266c2a960204fc931")}, {nombre: "Ana", edad: 31, profesion: "Desarrolladora", conferencia_id: ObjectId("65e06a5266c2a960204fc932")}, {nombre: "David", edad: 29, profesion: "Ingeniero de Datos", conferencia_id: ObjectId("65e06a5266c2a960204fc933")}, {nombre: "Elena", edad: 27, profesion: "Analista de Sistemas", conferencia_id: ObjectId("65e06a5266c2a960204fc934")}, {nombre: "Roberto", edad: 34, profesion: "Desarrollador", conferencia_id: ObjectId("65e06a5266c2a960204fc935")}])
 
--- Agregar un nuevo ponente:
+-- 4. Agregar un nuevo ponente:
 db.Ponentes.insertOne({nombre: "Sara Smith", especialidad: "Inteligencia Artificial", conferencia_id: ObjectId("65e06e3f66c2a960204fc93e")})
 
--- Agregar muchos ponentes
+-- 5. Agregar muchos ponentes
 db.Ponentes.insertMany([ {nombre: "John Doe", especialidad: "Ciberseguridad", conferencia_id: ObjectId("65e06a5266c2a960204fc934")}, {nombre: "Emma Johnson", especialidad: "Analítica de Datos", conferencia_id: ObjectId("65e06a5266c2a960204fc933")}, {nombre: "Michael Brown", especialidad: "Desarrollo Web", conferencia_id: ("65e06a5266c2a960204fc933")}, {nombre: "Sophie Clark", especialidad: "Blockchain", conferencia_id: ObjectId("65e06a5266c2a960204fc932")}, {nombre: "James Wilson", especialidad: "Inteligencia de Negocios", conferencia_id: ("65e06a5266c2a960204fc931")}, {nombre: "Isabella Martinez", especialidad: "Machine Learning", conferencia_id: ObjectId("65e06a5266c2a960204fc92f")}, {nombre: "Daniel Garcia", especialidad: "Desarrollo de Aplicaciones Móviles", conferencia_id: ObjectId("65e06a5266c2a960204fc92e")}, {nombre: "Sophia Lee", especialidad: "Realidad Aumentada", conferencia_id: ObjectId("65e06a5266c2a960204fc92d")}, {nombre: "Ethan Taylor", especialidad: "Big Data", conferencia_id: ObjectId("65e06a5266c2a960204fc92c")} ])
 
--- Buscar todas los asistentes:
+-- 6. Buscar todas los asistentes:
 db.Asistentes.find()
 
--- Buscar una conferencia por tema:
+-- 7. Buscar una conferencia por tema:
 db.Conferencias.find({tema: "Tecnología"})
 
--- Actualizar la fecha de una conferencia:
+-- 8. Actualizar la fecha de una conferencia:
 db.Conferencias.updateOne({nombre: "Web Summit"}, {$set: {fecha: new Date("2024-10-01")}})
+
+-- 9. Eliminar un asistente:
+db.Asistentes.deleteOne({nombre: "Juan"})
+
