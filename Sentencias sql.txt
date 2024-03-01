@@ -80,10 +80,30 @@ db.Conferencias.deleteMany({ tema: { $exists: false } })
 -- 18. Hallar los asistentes que irán a la misma conferencia:
 var conferencia = db.Conferencias.findOne({ nombre: "E3" });
 if (conferencia) {
-var asistentes = db.Asistentes.find({ conferencias: conferencia._id });
-asistentes.forEach(asistente => {
-print("Nombre del asistente: " + asistente.nombre);
+    var asistentes = db.Asistentes.find({ conferencias: conferencia._id });
+    asistentes.forEach(asistente => {
+    print("Nombre del asistente: " + asistente.nombre);
 });
 } else {
-print("La conferencia no fue encontrada.");
+    print("La conferencia no fue encontrada.");
 }
+
+-- Buscar los campos de la conferencia que tengan 2 tipos
+db.contenidos.find({ tipo: $in: [ “Serie”, “Show”] });
+SELECT * FROM contenidos WHERE tipo in (“Serie”, “Show”);
+
+-- Buscar los campos de la conferencia que contenga serie y su rating sea menor a 8
+db.contenidos.find({ $or: [{ tipo: { $regex: /Serie/i }}, { rating: { $lt: 8 } } ] } )
+SELECT * FROM contenidos WHERE tipo like “%Serie%” or rating < 8
+
+-- Buscar los campos de la conferencia que contenga serie o showy su rating sea menor a 8
+db.contenidos.find({ $or: [{ tipo: { $regex: /Serie/i }  }, { tipo: { $regex: /Show/i }  }], { rating: {$lt: 8 } } })
+SELECT * FROM contenidos WHERE tipo like “%Serie%” or tipo like “%Show%” and rating < 8
+
+-- Ordenar los datos
+db.contenidos.find.sort({rating: -1})
+SELECT * FROM productos ORDER BY rating DESC
+
+-- Hacer un limit
+db.usuarios.find().limit(1);
+SELECT * FROM usuarios LIMIT 1
