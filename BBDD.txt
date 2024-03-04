@@ -1,0 +1,24 @@
+-- Insertar un documento
+db.Conferencias.insertOne({nombre: "Web Summit", tema: "Tecnología", fecha: new Date("2024-06-01"), lugar: "Lisboa"})
+
+-- Insertar muchos documento
+db.Conferencias.insertMany([{nombre: "TED Conference", tema: "Inspiración", fecha: new Date("2024-09-15"), lugar: "Vancouver"},{nombre: "CES", tema: "Electrónica de consumo", fecha: new Date("2024-01-08"), lugar: "Las Vegas"}, {nombre: "SXSW", tema: "Tecnología y cultura", fecha: new Date("2024-03-13"), lugar: "Austin"}, {nombre: "E3", tema: "Videojuegos", fecha: new Date("2024-06-15"), lugar: "Los Ángeles"}, {nombre: "Collision", tema: "Tecnología y startups", fecha: new Date("2024-06-20"), lugar: "Toronto"}, {nombre: "Mobile World Congress", tema: "Tecnología móvil", fecha: new Date("2024-02-26"), lugar: "Barcelona"}, {nombre: "Strata Data Conference", tema: "Big Data y ", fecha: new Date("2024-03-17"), lugar: "San Francisco"}, {nombre: "Black Hat", tema: "Seguridad informática", fecha: new Date("2024-08-03"), lugar: "Las Vegas"}, {nombre: "Web Summit", tema: "Tecnología", fecha: new Date("2024-11-04"), lugar: "Lisboa"} ])
+
+-- Agregar varios asistentes a una conferencia:
+db.Asistentes.insertMany([ {nombre: "María", edad: 30, profesion: "Ingeniera", _id: ("65e06a5266c2a960204fc92d")}, {nombre: "Juan", edad: 35, profesion: "Desarrollador", conferencia_id: ObjectId("65e06a5266c2a960204fc92d")}, {nombre: "Laura", edad: 28, profesion: "Diseñadora", conferencia_id: ObjectId("65e06a5266c2a960204fc92e")}, {nombre: "Carlos", edad: 40, profesion: "Analista", conferencia_id: ObjectId("65e06a5266c2a960204fc92e")}, {nombre: "Sofía", edad: 33, profesion: "Gerente de Proyectos", conferencia_id: ObjectId("65e06a5266c2a960204fc92f")}, {nombre: "Pedro", edad: 32, profesion: "Consultor", conferencia_id: ObjectId("65e06a5266c2a960204fc931")}, {nombre: "Ana", edad: 31, profesion: "Desarrolladora", conferencia_id: ObjectId("65e06a5266c2a960204fc932")}, {nombre: "David", edad: 29, profesion: "Ingeniero de Datos", conferencia_id: ObjectId("65e06a5266c2a960204fc933")}, {nombre: "Elena", edad: 27, profesion: "Analista de Sistemas", conferencia_id: ObjectId("65e06a5266c2a960204fc934")}, {nombre: "Roberto", edad: 34, profesion: "Desarrollador", conferencia_id: ObjectId("65e06a5266c2a960204fc935")}])
+
+-- Agregar un nuevo ponente:
+db.Ponentes.insertOne({nombre: "Sara Smith", especialidad: "Inteligencia Artificial", conferencia_id: ObjectId("65e06e3f66c2a960204fc93e")})
+
+-- Agregar muchos ponentes
+db.Ponentes.insertMany([ {nombre: "John Doe", especialidad: "Ciberseguridad", conferencia_id: ObjectId("65e06a5266c2a960204fc934")}, {nombre: "Emma Johnson", especialidad: "Analítica de Datos", conferencia_id: ObjectId("65e06a5266c2a960204fc933")}, {nombre: "Michael Brown", especialidad: "Desarrollo Web", conferencia_id: ("65e06a5266c2a960204fc933")}, {nombre: "Sophie Clark", especialidad: "Blockchain", conferencia_id: ObjectId("65e06a5266c2a960204fc932")}, {nombre: "James Wilson", especialidad: "Inteligencia de Negocios", conferencia_id: ("65e06a5266c2a960204fc931")}, {nombre: "Isabella Martinez", especialidad: "Machine Learning", conferencia_id: ObjectId("65e06a5266c2a960204fc92f")}, {nombre: "Daniel Garcia", especialidad: "Desarrollo de Aplicaciones Móviles", conferencia_id: ObjectId("65e06a5266c2a960204fc92e")}, {nombre: "Sophia Lee", especialidad: "Realidad Aumentada", conferencia_id: ObjectId("65e06a5266c2a960204fc92d")}, {nombre: "Ethan Taylor", especialidad: "Big Data", conferencia_id: ObjectId("65e06a5266c2a960204fc92c")} ])
+
+
+-- Insertar documento de salas
+db.Salas.insertMany([{"nombre_sala": "Sala 1","capacidad": 50,"ubicacion": "Planta baja","mobiliario": ["proyector", "pantalla", "sillas", "mesas"]},{"nombre_sala": "Sala 2","capacidad": 30,"ubicacion": "Primer piso","mobiliario": ["pantalla", "sillas", "mesas"]},{"nombre_sala": "Sala 3","capacidad": 20,"ubicacion": "Segundo piso","mobiliario": ["pantalla", "sillas"]}])
+
+-- Borrar dato de un array en un documento 
+db.Salas.updateOne({"nombre_sala": "Sala 2"}, {$pull: {"mobiliario": "mesas"}})
+
+-- Meter dato de un array en un documento 
+db.Salas.updateOne({"nombre_sala": "Sala 2"}, {$push: {"mobiliario": "mesas"}})
