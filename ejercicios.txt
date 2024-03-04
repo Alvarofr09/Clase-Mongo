@@ -1,0 +1,16 @@
+-- Contar el numero total de asistentes por conferencia
+db.Asistentes.aggregate([{ $group: { _id: "$conferencia_id", total: {$sum: 1}}}]);
+
+-- Calcular la cantidad total de asistentes en todas las Conferencias
+db.Conferencias.aggregate([{$lookup: {from: "Asistentes", localField: "_id", foreignField: "conferencia_id", as: "asistentes"}}, {$project: {_id: 1, nombre: 1, totalAsistentes: {$size: "$asistentes"}}}])
+
+-- Encontrar la conferencia con la mayor cantidad de asistentes:
+db.Conferencias.aggregate([{$lookup: {from: "Asistentes",localField: "_id",foreignField: "conferencia_id",as: "asistentes"}},
+{$project: {_id: 1,nombre: 1,totalAsistentes: { $size: "$asistentes" }}},
+{ $sort: { totalAsistentes: -1 } },{ $limit: 1 }])
+
+-- Encontrar la cantidad total de mobiliarios en todas las salas:
+db.Salas.aggregate([{$project: {totalMobiliarios: { $sum: { $size: "$mobiliario" } }}}])
+
+-- Encontrar la cantidad promedio de asistentes por conferencia:
+db.Conferencias.aggregate([{$lookup: {from: "Asistentes", localField: "_id", foreignField: "conferencia_id", as: "asistentes"}},{$group: {_id: null, totalAsistentes: {$sum: {$size: "$asistentes"}}, totalConferencias: {$sum: 1}}} ,{$project: {_id: 0, promedioAsistentes: {$divide: ["$totalAsistentes", "$totalConferencias"]}}}])
