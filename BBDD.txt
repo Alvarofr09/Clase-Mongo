@@ -22,3 +22,30 @@ db.Salas.updateOne({"nombre_sala": "Sala 2"}, {$pull: {"mobiliario": "mesas"}})
 
 -- Meter dato de un array en un documento 
 db.Salas.updateOne({"nombre_sala": "Sala 2"}, {$push: {"mobiliario": "mesas"}})
+
+-- Meter un dato nuevo en la coleccion que se llama sala_id
+db.Conferencias.updateMany({}, {$set: {"sala_id": db.Salas.findOne({"nombre_sala": "Sala 1"})._id}})
+
+// Obtener el _id de la conferencia deseada
+let conferenciaId = ObjectId("id_de_la_conferencia");
+
+// Encontrar el documento de la conferencia con el _id dado
+let conferencia = db.Conferencias.findOne({ "_id": conferenciaId });
+if (conferencia) {
+    // Obtener el _id de la sala asociada a la conferencia
+    var salaId = conferencia.sala_id;
+
+    // Encontrar el documento de la sala asociada
+    var sala = db.Salas.findOne({ "_id": salaId });
+    if (sala) {
+        // Listar el mobiliario de la sala asociada
+        print("Mobiliario de la conferencia:");
+        sala.mobiliario.forEach(function(item) {
+        print("- " + item);
+    });
+    } else {
+        print("La sala asociada no fue encontrada.");
+    }
+} else {
+    print("La conferencia no fue encontrada.");
+}
