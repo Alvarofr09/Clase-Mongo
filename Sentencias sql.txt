@@ -115,3 +115,19 @@ SELECT * FROM usuarios LIMIT 1
 -- Encontrar los asistentes cuyo nombre contenga la 'E'
 db.Ponentes.find({nombre: /^E/})
 db.Ponentes.find({nombre: { $regex: /E/i }}) // Este no distingue entre minuscula y mayusculas
+
+-- Proyectar nombre y apellidos de los usuarios
+db.usuarios.find({}, {_id: 0, nombre: true, apellidos: true});
+SELECT nombre, apellidos FROM usuarios
+
+-- Agrupar por categorias
+db.productos.aggregate([{ $group: { _id: “$categoría”}}]);
+SELECT categoria FROM productos GROUP BY categoria
+
+-- Agregador sum
+db.productos.aggregate([{ $group: { _id: “$categoría”, total: { $sum:“$stock”}}}]);
+SELECT categoría, SUM(stock) FROM productos GROUP BY categoria
+
+-- Agregador AVG
+db.productos.aggregate([{ $group: { _id: “$categoría”, total: {$avg: “$stock”}}}]);
+SELECT categoría, AVG(stock) FROM productos GROUP BY categoria
