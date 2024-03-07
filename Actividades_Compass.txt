@@ -1,0 +1,152 @@
+1. Encontrar todos los empleados que ganan más de 30000€:
+{salario: {"$gt": 30000}}
+
+2. Encontrar todos los eventos que tienen un aforo mayor a 50 personas:
+{aforo: {$gt: 50}}
+
+3. Encontrar todos los clientes del sector "Educativo":
+{sector: "Educativo"}
+
+4. Encontrar todos los eventos que ocurrieron en la planta 2:
+{ "sala_asignada.planta": "Planta 2" }
+
+5. Encontrar todos los empleados que tienen "director" en su puesto:
+{puesto: "director"}
+
+6. Encontrar todos los usuarios que tienen una contraseña diferente de "1234":
+{password: {$ne: "1234"}}
+
+7. Encontrar todos los eventos que tienen asignado a "jesus@gmail.com" como usuario:
+{'usuario_asignado.email': 'jesus@gmail.com'}
+
+8. Encontrar todos los empleados que trabajan para "Releevant":
+{"cliente.razon_social": "Releevant"}
+
+9. Encontrar todos los eventos que se llevaron a cabo después del 01/01/2024:
+
+
+10. Encontrar todos los clientes que tienen más de 2 empleados:
+{numero_empleados: {$gt: 2}}
+
+11. Calcular el salario promedio de todos los empleados:
+{$group:{_id: null,media: {$avg: "$salario",},},}
+
+12. Encontrar todos los eventos que están asignados a salas en la "Planta 0":
+{ "sala_asignada.planta": "Planta 0" }
+
+13. Contar cuántos eventos hay en total:
+'string'
+
+14. Encontrar todos los clientes que no tienen ningún evento asignado:
+
+
+15. Encontrar el evento con el aforo más grande:
+{ sort: {aforo: -1},limit: 1}
+
+16. Calcular el precio total de todas las salas en "Planta 2":
+
+  [
+    { $match: { planta: 'Planta 2' } },
+    {
+      $group: {
+        _id: null,
+        precio_total: { $sum: '$precio' }
+      }
+    }
+  ],
+
+17. Encontrar todos los eventos que tienen asignado a "Lucas" como usuario o cliente:
+{$or: [{"usuario_asignado.email": "lucas@gmail.com"}, {"cliente_asignado.razon_social": "lucas"}]}
+
+18. Actualizar el estado del mobiliario "Mesa Delta" a 1:
+{
+  $set: {
+		estado: 1
+  },
+}
+
+19. Eliminar el empleado con el DNI "12345678A" y su respectivo usuario:
+{dni: "12345678A"}
+
+20. Encontrar el cliente con el mayor número de empleados y mostrar su información completa:
+{ sort: {numero_empleados: -1},limit}
+
+21. Encuentra todos los ordenadores asignados al cliente "Releevant".
+{tipo: "ordenador", "cliente_asignado.razon_social": "Releevant"}
+
+22. Encuentra todos los eventos que se llevarán a cabo en la sala "Events_place".
+{"sala_asignada.nombre": "Events_place"}
+
+23. Encuentra todos los usuarios cuyo correo electrónico termine en "@gmail.com".
+{email: {$regex: 	/@gmail.com$/}}
+
+24. Encuentra todas las impresoras asignadas a clientes que no sean "Releevant".
+{tipo: "impresora", "cliente_asignado.razon_social": {$ne: "Releevant"}}
+
+25. Encuentra todos los empleados que trabajan para clientes cuya razón social contiene la palabra "Telefonica".
+{"cliente.razon_social": {$regex: /Telefonica/i}	}
+
+26. Encuentra todos los clientes que tengan más de 2 empleados.
+{numero_empleados: {$gt: 2}}
+
+27. Encuentra todos los clientes cuyo CIF comience con "Q1".
+{cif: {$regex: /^Q1/}}
+
+28. Encuentra todos los clientes del sector "Programacion" que tengan un CIF que contenga el número "5".
+{sector: "Programacion", cif: {$regex: /5/}}
+
+29. Encuentra todos los clientes cuyo CIF termine en "21".
+{cif: {$regex: /21$/}}
+
+30. Encuentra el número total de eventos por cliente, ordenados de forma descendente por el número de eventos.
+[
+  {$group:{_id: "$cliente_asignado.razon_social",totalEventos: {$sum: 1}}},
+  {$sort:{totalEventos: -1}}
+]
+
+31. Encuentra la superficie total de todas las salas por planta.
+[
+  {$group:{_id: "$planta",superficie_total: {$sum: "$superficie"}}}
+]
+
+32. Encuentra el número de empleados por cliente, ordenados de forma ascendente por el número de empleados.
+[
+  { $group:{_id: "$cliente.razon_social", empleados: {$sum: 1}}},
+  {$sort:{empleados: -1}}
+]
+
+33. Encuentra la referencia más común de los dispositivos de inventario.
+[
+  {$group:{_id: "$referencia",total: {$sum: 1}}},
+  {$sort:{total: -1}},
+  {$limit:1}
+]
+
+34. Calcula la cantidad total de empleados por cliente.
+[
+  {
+    $group:{_id: "$cliente.razon_social",totalEmpleados: {$sum: 1}}
+  }
+]
+
+35. Proyecta solo los campos "nombre" y "apellidos" de los empleados.
+[
+  {
+    $project:{nombre: 1,apellidos: 1}
+  }
+]
+
+36. Omite los primeros 3 empleados.
+[
+  {
+    $skip: 3
+  }
+]
+
+37. Descompone el campo "usuario_asignado" en eventos.
+
+
+38. Realiza una unión entre los eventos y las salas.
+
+
+39. Encuentra los eventos con un aforo superior a 50 y los proyecta mostrando solo el nombre y la fecha de inicio.
